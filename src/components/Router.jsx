@@ -3,6 +3,8 @@ import {BrowserRouter, Routes, Route, useParams} from 'react-router-dom'
 import MenuHospitales from './MenuHospitales'
 import Home from './Home'
 import Doctores from './Doctores'
+import CreateHospital from './CreateHospital'
+import Hospitales from './Hospitales'
 export default class Router extends Component {
   render() {
     function DoctoresElement (){
@@ -16,6 +18,8 @@ export default class Router extends Component {
             <Routes>
                 <Route path='/' element={<Home></Home>}></Route>
                 <Route path='/doctores/:idhospital' element={<DoctoresElement></DoctoresElement>}></Route>
+                <Route path='/create' element={<CreateHospital></CreateHospital>} ></Route>
+                <Route path='/hospitales' element={<Hospitales></Hospitales>}></Route>
             </Routes>
         </BrowserRouter>
       </div>
