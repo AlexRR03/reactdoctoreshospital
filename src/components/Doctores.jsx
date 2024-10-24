@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import Global from './Global'
 import axios from 'axios'
+import DetallesDoctor from './DetallesDoctor'
 export default class Doctores extends Component {
     state = {
-        doctores: []
+        doctores: [],
+        idDoctor : -1
     }
 
     loadDoctores = () => {
@@ -16,13 +18,19 @@ export default class Doctores extends Component {
             })
         })
     }
-    componentDidMount = () =>{
+    componentDidMount = () => {
         this.loadDoctores();
     }
-    componentDidUpdate = (oldProps)=>{
+    componentDidUpdate = (oldProps) => {
         if (this.props.idhospital != oldProps.idhospital) {
             this.loadDoctores();
         }
+    }
+
+    mostrarDestalleDoctor = (idDoctor) => {
+        this.setState({
+            idDoctor: idDoctor
+        })
     }
 
     render() {
@@ -33,9 +41,7 @@ export default class Doctores extends Component {
                     <thead>
                         <tr>
                             <th>Apellido</th>
-                            <th>Especialidad</th>
-                            <th>Salario</th>
-                            <th>Id Hospital</th>
+                            <th>Detalles</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,15 +50,24 @@ export default class Doctores extends Component {
                                 return (
                                     <tr key={index}>
                                         <td>Dr. {doc.apellido}</td>
-                                        <td>{doc.especialidad}</td>
-                                        <td>{doc.salario} €</td>
-                                        <td>{doc.idHospital}</td>
+                                        <td>
+                                            <button onClick={()=>{
+                                                this.mostrarDestalleDoctor(doc.idDoctor)
+                                            }}>
+                                                Detalles
+                                            </button>
+                                        </td>
                                     </tr>
                                 )
                             })
                         }
                     </tbody>
                 </table>
+                {
+                    this.state.idDoctor != -1 && (
+                        <DetallesDoctor iddoctor = {this.state.idDoctor}></DetallesDoctor>
+                    )
+                }
             </div>
         )
     }
